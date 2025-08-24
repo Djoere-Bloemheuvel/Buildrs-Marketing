@@ -1,0 +1,407 @@
+---
+// Import main CSS for styling
+import '../index.css';
+import ScailUpHeader from '../components/ScailUpHeader';
+
+export interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+  showHeaderAlways?: boolean;
+  structuredData?: object;
+}
+
+const { title, description, keywords, showHeaderAlways = false, structuredData } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="nl" style="margin: 0 !important; padding: 0 !important; height: 100% !important;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- SEO Meta Tags -->
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  {keywords && <meta name="keywords" content={keywords} />}
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; media-src 'self' https://res.cloudinary.com; font-src 'self' data:; connect-src 'self' https:; object-src 'none'; base-uri 'self';" />
+
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://res.cloudinary.com" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href={`https://scailup.nl${Astro.url.pathname}`} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`https://scailup.nl${Astro.url.pathname}`} />
+  <meta property="og:image" content="https://scailup.nl/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  {description && <meta name="twitter:description" content={description} />}
+  <meta name="twitter:image" content="https://scailup.nl/og-image.jpg" />
+
+  <!-- Structured Data -->
+  {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>}
+
+  <!-- Performance optimizations -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+  <!-- CRITICAL CSS for instant hero visibility -->
+  <style>
+    /* Instant hero visibility - loaded before page render */
+    body {
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: #000000 !important;
+      color: #ffffff !important;
+      font-family: system-ui, -apple-system, sans-serif !important;
+      overflow-x: hidden !important;
+    }
+    
+    /* Prevent any flash of other content */
+    * {
+      box-sizing: border-box;
+    }
+    
+    /* Ensure main container starts correctly */
+    main {
+      background-color: #000000 !important;
+      min-height: 100vh !important;
+    }
+
+    #hero-container {
+      position: relative;
+      min-height: 90vh;
+      background-color: #000000;
+      display: block !important;
+    }
+
+    #hero-placeholder {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      background-color: #000000 !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      justify-content: center !important;
+      padding-top: 25vh !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      z-index: 1000 !important;
+    }
+
+    /* BACKUP Apple animations - Kritiek voor de hero animaties */
+    .apple-fade-in {
+      /* Default: Always visible and positioned correctly */
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth fallback */
+    }
+
+    /* Only animate when explicitly ready - progressive enhancement */
+    .animate-ready .apple-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: appleFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: none; /* Disable transition when animating */
+    }
+
+    .animate-ready .apple-stagger-1 { animation-delay: 0.1s; }
+    .animate-ready .apple-stagger-2 { animation-delay: 0.2s; }
+    .animate-ready .apple-stagger-3 { animation-delay: 0.4s; }
+    .animate-ready .apple-stagger-4 { animation-delay: 0.6s; }
+    .animate-ready .apple-stagger-5 { animation-delay: 0.8s; }
+
+    .apple-glow {
+      animation: appleGlow 8s ease-in-out infinite;
+    }
+
+    .apple-card-hover {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-card-hover:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .apple-button-hover {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-button-hover:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .apple-scale-hover:hover {
+      transform: scale(1.02);
+    }
+
+    .apple-scroll-pulse {
+      animation: appleScrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes appleFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes appleGlow {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.5;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes appleScrollPulse {
+      0%, 100% {
+        opacity: 0.4;
+        transform: translateY(0);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(8px);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Critical text styling */
+    .instant-hero-title {
+      font-size: clamp(2.25rem, 8vw, 8rem) !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      line-height: 0.9 !important;
+      letter-spacing: -0.025em !important;
+      margin-bottom: 0.5rem !important;
+      opacity: 0 !important;
+      transform: translateY(30px) !important;
+      animation: appleFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    .instant-hero-subtitle {
+      font-size: clamp(1.125rem, 4vw, 3rem) !important;
+      margin-bottom: clamp(2rem, 8vw, 4rem) !important;
+      line-height: 1.4 !important;
+      font-weight: 300 !important;
+      color: rgba(192, 192, 192, 0.9) !important;
+      opacity: 0 !important;
+      transform: translateY(30px) !important;
+      animation: appleFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards !important;
+    }
+
+    .instant-hero-buttons {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1rem !important;
+      justify-content: center !important;
+      align-items: center !important;
+      opacity: 0 !important;
+      transform: translateY(30px) !important;
+      animation: appleFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards !important;
+    }
+
+    @media (min-width: 640px) {
+      .instant-hero-buttons {
+        flex-direction: row !important;
+        gap: 1.5rem !important;
+      }
+    }
+  </style>
+
+  <!-- Additional Animation CSS for Astro (index.css has main Apple animations) -->
+  <style>
+    /* Ensure body styling for instant visibility */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+      color: #ffffff;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    /* AnimatedHeadline glitch animations - ensure they work in Astro */
+    .glitch-rgb-red {
+      animation: glitch-rgb-red 120ms linear infinite;
+    }
+
+    .glitch-rgb-green {
+      animation: glitch-rgb-green 120ms linear infinite;
+    }
+
+    .glitch-rgb-blue {
+      animation: glitch-rgb-blue 120ms linear infinite;
+    }
+
+    .glitch-slice-1 {
+      animation: glitch-slice-1 120ms linear infinite;
+    }
+
+    .glitch-slice-2 {
+      animation: glitch-slice-2 120ms linear infinite;
+    }
+
+    .glitch-scanline {
+      animation: glitch-scanline 120ms linear infinite;
+    }
+
+    @keyframes glitch-rgb-red {
+      0% { transform: translate(-2px, -1px) skewX(-1deg); opacity: 0.8; }
+      25% { transform: translate(1px, 2px) skewX(1deg); opacity: 0.9; }
+      50% { transform: translate(-1px, 1px) skewX(-0.5deg); opacity: 0.7; }
+      75% { transform: translate(2px, -2px) skewX(1.5deg); opacity: 0.8; }
+      100% { transform: translate(-1px, 1px) skewX(0.5deg); opacity: 0.9; }
+    }
+
+    @keyframes glitch-rgb-green {
+      0% { transform: translate(1px, -2px) skewY(1deg); opacity: 0.7; }
+      25% { transform: translate(-2px, 1px) skewY(-1deg); opacity: 0.8; }
+      50% { transform: translate(2px, 1px) skewY(0.5deg); opacity: 0.6; }
+      75% { transform: translate(-1px, -2px) skewY(-1.5deg); opacity: 0.9; }
+      100% { transform: translate(1px, 2px) skewY(1deg); opacity: 0.7; }
+    }
+
+    @keyframes glitch-rgb-blue {
+      0% { transform: translate(2px, 1px) skewX(0.5deg); opacity: 0.9; }
+      30% { transform: translate(-1px, -2px) skewX(-1deg); opacity: 0.6; }
+      60% { transform: translate(3px, 1px) skewX(1.5deg); opacity: 0.8; }
+      90% { transform: translate(-2px, -1px) skewX(-0.5deg); opacity: 0.7; }
+      100% { transform: translate(1px, 2px) skewX(1deg); opacity: 0.8; }
+    }
+
+    @keyframes glitch-slice-1 {
+      0% { transform: translateX(0px); }
+      10% { transform: translateX(-5px) scaleX(1.05); }
+      20% { transform: translateX(3px) scaleX(0.95); }
+      30% { transform: translateX(-2px) scaleX(1.02); }
+      40% { transform: translateX(4px) scaleX(0.98); }
+      50% { transform: translateX(-3px) scaleX(1.03); }
+      60% { transform: translateX(2px) scaleX(0.97); }
+      70% { transform: translateX(-4px) scaleX(1.01); }
+      80% { transform: translateX(3px) scaleX(0.99); }
+      90% { transform: translateX(-1px) scaleX(1.02); }
+      100% { transform: translateX(0px) scaleX(1); }
+    }
+
+    @keyframes glitch-slice-2 {
+      0% { transform: translateX(0px); }
+      15% { transform: translateX(4px) scaleX(0.96); }
+      30% { transform: translateX(-3px) scaleX(1.04); }
+      45% { transform: translateX(2px) scaleX(0.98); }
+      60% { transform: translateX(-4px) scaleX(1.02); }
+      75% { transform: translateX(3px) scaleX(0.97); }
+      90% { transform: translateX(-1px) scaleX(1.01); }
+      100% { transform: translateX(0px) scaleX(1); }
+    }
+
+    @keyframes glitch-scanline {
+      0% { top: 0%; height: 2px; opacity: 0.8; }
+      25% { top: 25%; height: 1px; opacity: 1; }
+      50% { top: 50%; height: 3px; opacity: 0.6; }
+      75% { top: 75%; height: 1px; opacity: 0.9; }
+      100% { top: 100%; height: 2px; opacity: 0.7; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-black text-white" style="margin: 0 !important; padding: 0 !important; height: 100% !important; position: relative !important; top: 0 !important;">
+  <!-- ScailUp Navigation Header -->
+  <ScailUpHeader client:only="react" showAlways={showHeaderAlways} />
+  
+  <slot />
+
+  <!-- CRITICAL: Preemptive Header Animation Fix -->
+  <script>
+    // 🔥 INSTANT header animation fix - before React hydration
+    function preemptiveHeaderFix() {
+      const scrollY = window.scrollY;
+      const header = document.querySelector('header');
+      
+      if (header && scrollY > 100) {
+        // User has already scrolled - make header visible immediately
+        header.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+        header.classList.add('opacity-100', 'translate-y-0');
+        console.log('🔥 Preemptive header fix applied - user already scrolled:', scrollY);
+      }
+    }
+
+    // Run multiple times to catch any timing issues
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', preemptiveHeaderFix);
+    } else {
+      preemptiveHeaderFix();
+    }
+    
+    // Backup triggers
+    setTimeout(preemptiveHeaderFix, 10);
+    setTimeout(preemptiveHeaderFix, 100);
+  </script>
+
+  <!-- Performance monitoring & Animation Fallback script -->
+  <script>
+    // Simple performance monitoring
+    window.addEventListener('load', () => {
+      const navigation = performance.getEntriesByType('navigation')[0];
+      if (navigation && navigation.loadEventEnd - navigation.fetchStart > 0) {
+        console.log(`Page loaded in ${Math.round(navigation.loadEventEnd - navigation.fetchStart)}ms`);
+      }
+    });
+
+    // Fail-safe animation system for Astro
+    function initAppleAnimations() {
+      // Add animate-ready class to body for progressive enhancement
+      document.body.classList.add('animate-ready');
+      console.log('✅ Apple animations ready - text should be visible with smooth transitions');
+
+      // Log current visibility state for debugging
+      const fadeElements = document.querySelectorAll('.apple-fade-in');
+      fadeElements.forEach((el, i) => {
+        const opacity = window.getComputedStyle(el).opacity;
+        console.log(`Element ${i}: opacity = ${opacity}`);
+      });
+    }
+
+    // Multiple initialization strategies for reliability
+    function setupAnimations() {
+      // Strategy 1: Immediate if DOM already loaded
+      if (document.readyState !== 'loading') {
+        setTimeout(initAppleAnimations, 50);
+        return;
+      }
+
+      // Strategy 2: Wait for DOM
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(initAppleAnimations, 50);
+      });
+    }
+
+    // Strategy 3: Listen for Astro-specific events
+    window.addEventListener('astro:load', () => {
+      setTimeout(initAppleAnimations, 100);
+    });
+
+    // Start setup
+    setupAnimations();
+  </script>
+</body>
+</html>

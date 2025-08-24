@@ -1,0 +1,116 @@
+{
+  "$ref": "#/definitions/pillars",
+  "definitions": {
+    "pillars": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "pillarId": {
+          "type": "string"
+        },
+        "accentColor": {
+          "type": "string"
+        },
+        "gradientFrom": {
+          "type": "string"
+        },
+        "gradientTo": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "heroImage": {
+          "type": "object",
+          "properties": {
+            "src": {
+              "type": "string"
+            },
+            "alt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "src",
+            "alt"
+          ],
+          "additionalProperties": false
+        },
+        "coreExplanation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "description"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "order": {
+          "type": "number"
+        },
+        "seo": {
+          "type": "object",
+          "properties": {
+            "metaTitle": {
+              "type": "string"
+            },
+            "metaDescription": {
+              "type": "string"
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ogImage": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "pillarId",
+        "accentColor",
+        "gradientFrom",
+        "gradientTo",
+        "icon",
+        "coreExplanation",
+        "order"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

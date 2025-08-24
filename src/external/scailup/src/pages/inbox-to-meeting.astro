@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ScailUpHero from '../components/ScailUpHero';
+import EmailProblemSection from '../components/EmailProblemSection';
+import EmailSolutionSection from '../components/EmailSolutionSection';
+import EmailUSPSection from '../components/EmailUSPSection';
+import EmailProcessSection from '../components/EmailProcessSection';
+import EmailProductDetailsSection from '../components/EmailProductDetailsSection';
+import EmailPricingSection from '../components/EmailPricingSection';
+import EmailFAQSection from '../components/EmailFAQSection';
+import EmailClosingCTASection from '../components/EmailClosingCTASection';
+
+// Inbox-to-Meeting structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "E-mailcampagnes - Van Inbox Tot Meeting",
+  "description": "AI-gedreven e-mailcampagnes die daadwerkelijk meetings boeken. 10x meer respons dan traditionele cold email.",
+  "provider": {
+    "@type": "Organization",
+    "name": "ScailUp",
+    "url": "https://scailup.nl",
+    "logo": "https://scailup.nl/logo.png"
+  },
+  "areaServed": "Nederland",
+  "offers": {
+    "@type": "Offer",
+    "name": "E-mailmarketing met AI-personalisatie",
+    "description": "Complete e-mailcampagne service van targeting tot meeting booking"
+  }
+};
+---
+
+<Layout 
+  title="E-mailcampagnes die Meetings Boeken | Van Inbox Tot Meeting | ScailUp"
+  description="Transformeer je e-mailmarketing met AI-personalisatie. 85% inbox rate, 12% response rate. Duizenden prospects bereiken met berichten die daadwerkelijk converteren naar meetings."
+  keywords="e-mailcampagnes, email marketing Nederland, cold email, AI personalisatie, outbound marketing, lead generatie, meeting booking, sales automation, inbox rate"
+  structuredData={structuredData}
+  showHeaderAlways={true}
+>
+  <ScailUpHero client:load isEmailPage={true} />
+  <EmailProblemSection client:load />
+  <EmailSolutionSection client:load />
+  <EmailUSPSection client:load />
+  <EmailProcessSection client:load />
+  <EmailProductDetailsSection client:load />
+  <EmailPricingSection client:load />
+  <EmailFAQSection client:load />
+  <EmailClosingCTASection client:load />
+</Layout>

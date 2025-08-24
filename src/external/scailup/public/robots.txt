@@ -1,0 +1,45 @@
+# Robots.txt for Buildrs.AI - Elite AI Engineering Studio
+# Last updated: 2024-12-19
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: *
+Allow: /
+Crawl-delay: 2
+
+# Block access to development and config files
+Disallow: /src/
+Disallow: /_next/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: *.json
+Disallow: *.config.*
+
+# Allow important files
+Allow: /robots.txt
+Allow: /sitemap.xml
+Allow: /favicon.ico
+
+# Sitemap location
+Sitemap: https://buildrs.ai/sitemap.xml
+
+# Additional sitemaps for specific content types
+# Sitemap: https://buildrs.ai/services-sitemap.xml
