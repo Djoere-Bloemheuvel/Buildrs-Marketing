@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ScailUpHero from '../components/ScailUpHero';
+import Services from '../components/Services';
+import SimpleApproach from '../components/SimpleApproach';
+import ProblemsSection from '../components/ProblemsSection';
+import SolutionsSection from '../components/SolutionsSection';
+import TransitionSection from '../components/TransitionSection';
+import FinaleCTASection from '../components/FinaleCTASection';
+
+// ScailUp structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ScailUp",
+  "description": "Done-for-you outbound agency. E-mailcampagnes, LinkedIn outreach en Account Based Marketing die echt converteren.",
+  "url": "https://scailup.nl",
+  "logo": "https://scailup.nl/logo.png",
+  "sameAs": [
+    "https://linkedin.com/company/scailup"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+31-6-12345678",
+    "contactType": "customer service",
+    "availableLanguage": "Dutch"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "NL",
+    "addressLocality": "Amsterdam"
+  },
+  "service": [
+    {
+      "@type": "Service",
+      "name": "E-mailcampagnes",
+      "description": "AI-gedreven e-mailcampagnes die opvallen tussen de ruis"
+    },
+    {
+      "@type": "Service", 
+      "name": "LinkedIn Outreach",
+      "description": "Strategische LinkedIn-campagnes die leiden tot afspraken"
+    },
+    {
+      "@type": "Service",
+      "name": "Account Based Marketing",
+      "description": "ABM-campagnes gericht op jouw ideale klanten"
+    }
+  ]
+};
+---
+
+<Layout 
+  title="ScailUp | Done-for-You Outbound Agency"
+  description="Meer afspraken, minder ruis. AI-gedreven e-mailcampagnes, LinkedIn outreach en ABM die echt converteren. Geen spam, wel resultaat."
+  keywords="outbound marketing, e-mailcampagnes, LinkedIn outreach, Account Based Marketing, ABM, lead generation, B2B marketing, Netherlands"
+>
+  <!-- Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+  
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white text-black px-4 py-2 rounded">
+    Skip to main content
+  </a>
+
+  <!-- Critical CSS to prevent FOUC and ensure instant hero visibility -->
+  <style>
+    
+    /* Ensure page starts with true black background */
+    body {
+      background-color: #000000 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    html {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* Ensure no spacing anywhere that could create black canvas */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Force hero to start at very top */
+    #main-content {
+      position: relative;
+      top: 0 !important;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Critical hero styles for instant rendering */
+    .hero-section {
+      position: relative;
+      min-height: 90vh;
+      background-color: #000000;
+      color: #ffffff;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 25vh 1rem 3rem;
+    }
+    
+    /* Prevent any layout shift */
+    .hero-content {
+      position: relative;
+      max-width: 80rem;
+      width: 100%;
+      text-align: center;
+      z-index: 30;
+    }
+  </style>
+
+  <main id="main-content" role="main" class="min-h-screen bg-black">
+    <!-- ScailUp Hero section -->
+    <ScailUpHero client:load />
+    
+    <!-- Services section -->
+    <Services client:visible />
+    
+    <!-- Approach section (4 kern principes) -->
+    <SimpleApproach client:visible />
+    
+    <!-- Problems section -->
+    <ProblemsSection client:visible />
+    
+    <!-- Transition section -->
+    <TransitionSection client:visible />
+    
+    <!-- Solutions section -->
+    <SolutionsSection client:visible />
+    
+    <!-- Finale CTA section -->
+    <FinaleCTASection client:visible />
+  </main>
+
+</Layout>
+

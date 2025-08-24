@@ -1,0 +1,126 @@
+/* Service Animation System - Exact Original Implementation */
+
+/* Stage 1: Initial State */
+.service-initial {
+  opacity: 0;
+  transform: translateY(12px) scale(0.95);
+}
+
+.service-text-initial {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.service-visual-initial {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Stage 2: Entrance Animation */
+.service-entrance {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 1000ms ease-out;
+}
+
+.service-text-entrance {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1000ms ease-out;
+}
+
+.service-visual-entrance {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 1200ms ease-out;
+  transition-delay: 200ms;
+}
+
+/* Stage 3: Interactive State */
+.service-interactive {
+  transition: all 700ms ease-out;
+}
+
+.service-interactive:hover {
+  transform: scale(1.05);
+}
+
+/* Custom Sweep Keyframes */
+@keyframes sweep {
+  0% { 
+    transform: translateX(-100%); 
+  }
+  50% { 
+    transform: translateX(100%); 
+  }
+  100% { 
+    transform: translateX(100%); 
+  }
+}
+
+@keyframes sweep-hover {
+  0% { 
+    transform: translateX(-100%); 
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translateX(100%); 
+    opacity: 0.8;
+  }
+  100% { 
+    transform: translateX(100%); 
+    opacity: 0;
+  }
+}
+
+/* Sweep Animation Utilities */
+.sweep-animation {
+  animation: sweep 3s ease-in-out infinite;
+  animation-delay: var(--sweep-delay, 0s);
+}
+
+.sweep-animation-hover {
+  animation: sweep-hover 2s ease-in-out infinite;
+}
+
+/* Performance Optimizations */
+.gpu-accelerate {
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
+
+.gpu-accelerate-scale {
+  will-change: transform, opacity, scale;
+}
+
+/* Interactive Hover Effects */
+.glow-base {
+  opacity: 0.4;
+  transition: all 700ms ease-out;
+}
+
+.glow-hover:hover .glow-base {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+/* Text Animation Classes */
+.text-fade-slide {
+  transition: all 1000ms ease-out;
+}
+
+.text-fade-slide.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Visual Element Animation Classes */
+.visual-scale-fade {
+  transition: all 1200ms ease-out;
+  transition-delay: 200ms;
+}
+
+.visual-scale-fade.animate {
+  opacity: 1;
+  transform: scale(1);
+}

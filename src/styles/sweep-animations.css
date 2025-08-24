@@ -1,0 +1,87 @@
+/* Custom CSS keyframes for service section sweep animations */
+
+@keyframes sweep {
+  0% { 
+    transform: translate3d(-100%, 0, 0); 
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translate3d(100%, 0, 0); 
+    opacity: 0.8;
+  }
+  100% { 
+    transform: translate3d(100%, 0, 0); 
+    opacity: 0;
+  }
+}
+
+@keyframes sweep-hover {
+  0% { 
+    transform: translateX(-100%) scaleY(1.2); 
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translateX(100%) scaleY(1.2); 
+    opacity: 0.6;
+  }
+  100% { 
+    transform: translateX(100%) scaleY(1.2); 
+    opacity: 0;
+  }
+}
+
+/* Animation utilities */
+.sweep-animation {
+  animation: sweep 3s ease-in-out infinite;
+  animation-delay: var(--sweep-delay, 0s);
+  /* Isolate from parent transforms */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Force separate compositing layer */
+  will-change: transform;
+  transform: translateZ(0);
+  isolation: isolate;
+}
+
+.sweep-animation-hover {
+  animation: none;
+}
+
+.hover\\:sweep-animation-hover:hover .sweep-animation-hover {
+  animation: sweep-hover 2s ease-in-out infinite;
+}
+
+/* GPU acceleration helpers */
+.gpu-accelerate {
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
+
+.gpu-accelerate-hover {
+  will-change: transform, opacity, scale;
+}
+
+/* Performance optimized base states */
+.service-initial {
+  opacity: 0;
+  transform: translateY(12px) scale(0.95);
+}
+
+.service-entrance {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 1000ms ease-out;
+}
+
+.service-interactive {
+  transition: all 700ms ease-out;
+}
+
+.service-interactive:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,70 @@
+{
+  "$ref": "#/definitions/clusters",
+  "definitions": {
+    "clusters": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "clusterId": {
+          "type": "string"
+        },
+        "pillar": {
+          "type": "string",
+          "enum": [
+            "ai-automatisering",
+            "ai-marketing",
+            "ai-sales"
+          ]
+        },
+        "order": {
+          "type": "number"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "seo": {
+          "type": "object",
+          "properties": {
+            "metaTitle": {
+              "type": "string"
+            },
+            "metaDescription": {
+              "type": "string"
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ogImage": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "clusterId",
+        "pillar",
+        "order"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
